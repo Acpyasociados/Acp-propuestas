@@ -1,4 +1,4 @@
-name: "Automatizar Propuestas de Clientes"
+hname: "Automatizar Propuestas de Clientes"
 
 on:
   issues:
