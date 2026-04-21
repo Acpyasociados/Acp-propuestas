@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback - Propuesta ACP & Asociados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1B3B5C;
+            --text-dark: #2C3E50;
+            --white: #FFFFFF;
+            --light: #ECF0F3;
+            --text-secondary: #95A5A6;
+            --accent-teal: #16A085;
+            --accent-gold: #D4AF37;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--primary) 0%, #0F2C47 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0F2C47 100%);
+            color: var(--white);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+        }
+
+        .logo-container img {
+            height: 35px;
+            width: auto;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .intro h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .intro p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D0D0D0;
+            border-radius: 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .radio-group {
+            margin-top: 12px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            background: var(--light);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .radio-option:hover {
+            background-color: #D0E8E5;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-teal);
+        }
+
+        .radio-option label {
+            margin-bottom: 0;
+            text-transform: none;
+            font-weight: normal;
+            text-transform: none;
+            font-size: 14px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 6px;
+            background: var(--light);
+            cursor: pointer;
+        }
+
+        .checkbox-option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-teal);
+        }
+
+        .checkbox-option label {
+            margin-bottom: 0;
+            font-weight: normal;
+            font-size: 13px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .required {
+            color: #E67E22;
+            font-weight: bold;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--accent-teal);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #138D75;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .success-message {
+            display: none;
+            background: #E8F8F5;
+            border: 1px solid var(--accent-teal);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            color: var(--accent-teal);
+            margin-top: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--light);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 30px 20px;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .intro h2 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="logo-acp.png" alt="ACP & Asociados">
+            </div>
+            <h1>Gracias por tu tiempo</h1>
+            <p>Cuéntanos tu feedback sobre la propuesta</p>
+        </header>
+
+        <div class="content">
+            <div class="intro">
+                <h2>Tu opinión importa</h2>
+                <p>Completa este formulario para que podamos ajustar exactamente a lo que necesitas</p>
+            </div>
+
+            <form id="feedbackForm">
+                <!-- NOMBRE -->
+                <div class="form-group">
+                    <label>Tu nombre <span class="required">*</span></label>
+                    <input type="text" name="nombre" required placeholder="Ej: Tihare Aravena">
+                </div>
+
+                <!-- EMAIL -->
+                <div class="form-group">
+                    <label>Email de contacto <span class="required">*</span></label>
+                    <input type="email" name="email" required placeholder="Ej: tihare@transporte.cl">
+                </div>
+
+                <!-- EMPRESA -->
+                <div class="form-group">
+                    <label>Tu empresa <span class="required">*</span></label>
+                    <input type="text" name="empresa" required placeholder="Ej: Mi Empresa SPA">
+                </div>
+
+                <!-- RUBRO -->
+                <div class="form-group">
+                    <label>Rubro/Industria <span class="required">*</span></label>
+                    <input type="text" name="rubro" required placeholder="Ej: Transporte por carretera">
+                </div>
+
+                <!-- PLAN PREFERIDO -->
+                <div class="form-group">
+                    <label>¿Cuál opción te atrae más?</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" name="plan" id="plan1" value="Opción 1: Reducción de Costos">
+                            <label for="plan1">Opción 1: Solo Reducción de Costos</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="plan" id="plan2" value="Opción 2: Oportunidades de Crecimiento">
+                            <label for="plan2">Opción 2: Solo Oportunidades de Crecimiento</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="plan" id="plan3" value="Opción 3: Plan Integral (RECOMENDADO)" checked>
+                            <label for="plan3">Opción 3: Plan Integral (RECOMENDADO)</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" name="plan" id="plan4" value="No estoy seguro, hablemos">
+                            <label for="plan4">No estoy seguro, hablemos</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAYOR PREOCUPACIÓN -->
+                <div class="form-group">
+                    <label>¿Cuál es tu mayor preocupación AHORA? <span class="required">*</span></label>
+                    <select name="preocupacion" required>
+                        <option value="">-- Selecciona una opción --</option>
+                        <option value="Costos subiendo por petróleo (MUY URGENTE)">Costos subiendo por petróleo (MUY URGENTE)</option>
+                        <option value="Márgenes se comprimen (problema severo)">Márgenes se comprimen (problema severo)</option>
+                        <option value="Necesito más clientes (crecimiento)">Necesito más clientes (crecimiento)</option>
+                        <option value="Ambas simultáneamente (máxima presión)">Ambas simultáneamente (máxima presión)</option>
+                    </select>
+                </div>
+
+                <!-- CUÁNDO EMPEZAR -->
+                <div class="form-group">
+                    <label>¿Cuándo te gustaría empezar?</label>
+                    <select name="timeline">
+                        <option value="">-- Selecciona --</option>
+                        <option value="Inmediato (esta semana)" selected>Inmediato (esta semana)</option>
+                        <option value="Próximas 2 semanas">Próximas 2 semanas</option>
+                        <option value="Próximo mes">Próximo mes</option>
+                        <option value="Flexible">Flexible</option>
+                    </select>
+                </div>
+
+                <!-- PREGUNTAS -->
+                <div class="form-group">
+                    <label>¿Dudas o preguntas antes de avanzar?</label>
+                    <textarea name="preguntas" placeholder="Cuéntanos cualquier duda, pregunta o consideración..."></textarea>
+                </div>
+
+                <!-- PRÓXIMO PASO -->
+                <div class="form-group">
+                    <label>¿Cómo prefieres continuar? <span class="required">*</span></label>
+                    <div class="radio-group">
+                        <div class="checkbox-option">
+                            <input type="radio" name="proximo_paso" id="paso1" value="Videollamada con Patricio (30 min)" required checked>
+                            <label for="paso1">Videollamada con Patricio (30 min)</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="radio" name="proximo_paso" id="paso2" value="Email con información adicional">
+                            <label for="paso2">Email con información adicional</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="radio" name="proximo_paso" id="paso3" value="Contacto por WhatsApp directo">
+                            <label for="paso3">Contacto por WhatsApp directo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn">📱 Enviar Feedback por WhatsApp</button>
+
+                <div class="success-message" id="successMessage">
+                    <strong>✓ ¡Gracias!</strong><br>
+                    Tu feedback se está enviando por WhatsApp a Patricio.<br>
+                    Te contactará en breve.
+                </div>
+            </form>
+        </div>
+
+        <footer>
+            <p><strong>ACP & Asociados</strong> | Asesorías Financieras y de Negocios</p>
+            <p>Providencia, Santiago | +56 9 4401 8594 | info@acpasociados.cl</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Validar que todos los campos obligatorios están llenos
+            if (!data.nombre || !data.email || !data.empresa || !data.rubro || !data.preocupacion || !data.proximo_paso) {
+                alert('Por favor completa todos los campos obligatorios (*)');
+                return;
+            }
+
+            // Crear mensaje para WhatsApp
+            const mensaje = `📋 *FEEDBACK PROPUESTA ACP & ASOCIADOS*
+
+👤 *CLIENTE:*
+Nombre: ${data.nombre}
+Email: ${data.email}
+Empresa: ${data.empresa}
+Rubro: ${data.rubro}
+
+🎯 *PROPUESTA:*
+Plan Seleccionado: ${data.plan || '(no seleccionado)'}
+
+⚠️ *MAYOR PREOCUPACIÓN:*
+${data.preocupacion}
+
+📅 *TIMELINE:*
+${data.timeline || '(flexible)'}
+
+❓ *DUDAS/PREGUNTAS:*
+${data.preguntas || '(sin preguntas)'}
+
+✅ *PRÓXIMO PASO:*
+${data.proximo_paso}
+
+---
+Mensaje enviado desde formulario online
+${new Date().toLocaleString('es-CL')}`;
+
+            // Generar link de WhatsApp
+            const whatsappLink = `https://wa.me/56944018594?text=${encodeURIComponent(mensaje)}`;
+            
+            // Abrir WhatsApp
+            window.open(whatsappLink, '_blank');
+            
+            // Mostrar mensaje de éxito
+            document.getElementById('successMessage').classList.add('show');
+            
+            // Desactivar botón
+            document.querySelector('.submit-btn').disabled = true;
+            document.querySelector('.submit-btn').style.opacity = '0.5';
+            
+            // Limpiar formulario después de 2 segundos
+            setTimeout(() => {
+                document.getElementById('feedbackForm').reset();
+                document.querySelector('.submit-btn').disabled = false;
+                document.querySelector('.submit-btn').style.opacity = '1';
+                document.getElementById('successMessage').classList.remove('show');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

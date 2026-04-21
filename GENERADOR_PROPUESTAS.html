@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Propuestas - ACP & Asociados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1B3B5C;
+            --text-dark: #2C3E50;
+            --white: #FFFFFF;
+            --light: #ECF0F3;
+            --text-secondary: #95A5A6;
+            --accent-teal: #16A085;
+            --accent-gold: #D4AF37;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, #0F2C47 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 50px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D0D0D0;
+            border-radius: 6px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 0 3px rgba(22, 160, 133, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--accent-teal);
+            color: var(--white);
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: #138D75;
+        }
+
+        .info-box {
+            background: #E8F8F5;
+            border: 1px solid var(--accent-teal);
+            border-left: 4px solid var(--accent-teal);
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .info-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .success-message {
+            display: none;
+            background: #E8F8F5;
+            border: 1px solid var(--accent-teal);
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            color: var(--accent-teal);
+            margin-top: 20px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .copy-btn {
+            background-color: var(--accent-gold);
+            color: var(--primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .copy-btn:hover {
+            background-color: #E5C158;
+        }
+
+        .output-section {
+            display: none;
+            background: var(--light);
+            padding: 25px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        .output-section.show {
+            display: block;
+        }
+
+        .output-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        .output-item {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-teal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .output-label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .output-value {
+            color: var(--text-dark);
+            font-size: 13px;
+            margin-top: 5px;
+            word-break: break-all;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Generador de Propuestas</h1>
+            <p class="subtitle">Crea propuestas personalizadas en 2 minutos</p>
+        </header>
+
+        <div class="info-box">
+            <strong>💡 ¿Cómo funciona?</strong>
+            Completa los datos de tu cliente, y te generaremos automáticamente:
+            <br>✓ Un link para la propuesta personalizada
+            <br>✓ Un link para el formulario de feedback
+            <br>✓ Un mensaje de WhatsApp listo para copiar y pegar
+        </div>
+
+        <form id="generatorForm">
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Nombre del cliente *</label>
+                    <input type="text" name="nombreCliente" required placeholder="Ej: Tihare Aravena">
+                </div>
+
+                <div class="form-group">
+                    <label>Email del cliente *</label>
+                    <input type="email" name="emailCliente" required placeholder="Ej: tihare@transporte.cl">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Empresa/Negocio *</label>
+                    <input type="text" name="empresa" required placeholder="Ej: Transportes Mi Flota">
+                </div>
+
+                <div class="form-group">
+                    <label>Rubro/Industria *</label>
+                    <input type="text" name="rubro" required placeholder="Ej: Transporte por carretera">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Ubicación *</label>
+                    <input type="text" name="ubicacion" required placeholder="Ej: Huechuraba, Santiago">
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo de propuesta *</label>
+                    <select name="tipoPropuesta" required>
+                        <option value="">-- Selecciona --</option>
+                        <option value="Reducción de Costos">Reducción de Costos</option>
+                        <option value="Oportunidades de Crecimiento">Oportunidades de Crecimiento</option>
+                        <option value="Integral (Costos + Crecimiento)">Integral (Costos + Crecimiento)</option>
+                        <option value="Personalizado">Personalizado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Principales desafíos del cliente *</label>
+                <textarea name="desafios" required placeholder="Ej: Alza de costos por petróleo + Necesidad de incrementar clientes"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">🚀 Generar Links y Mensaje</button>
+
+            <div class="success-message" id="successMessage">
+                <strong>✓ ¡Listo!</strong><br>
+                Aquí están tus links. Copia y pega en WhatsApp.
+            </div>
+
+            <div class="output-section" id="outputSection">
+                <div class="output-title">📱 Tu Mensaje de WhatsApp (listo para copiar):</div>
+                <div class="output-item">
+                    <div style="flex: 1;">
+                        <div class="output-label">Mensaje completo:</div>
+                        <div class="output-value" id="whatsappMessage"></div>
+                    </div>
+                    <button type="button" class="copy-btn" onclick="copyToClipboard('whatsappMessage')">Copiar</button>
+                </div>
+
+                <div style="margin-top: 25px; padding-top: 25px; border-top: 1px solid #D0D0D0;">
+                    <div class="output-title">🔗 Links Individuales:</div>
+                    
+                    <div class="output-item">
+                        <div style="flex: 1;">
+                            <div class="output-label">Link Propuesta:</div>
+                            <div class="output-value" id="linkPropuesta"></div>
+                        </div>
+                        <button type="button" class="copy-btn" onclick="copyToClipboard('linkPropuesta')">Copiar</button>
+                    </div>
+
+                    <div class="output-item">
+                        <div style="flex: 1;">
+                            <div class="output-label">Link Formulario:</div>
+                            <div class="output-value" id="linkFormulario"></div>
+                        </div>
+                        <button type="button" class="copy-btn" onclick="copyToClipboard('linkFormulario')">Copiar</button>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; padding: 20px; background: var(--white); border-radius: 4px; border-left: 3px solid var(--accent-gold);">
+                    <div class="output-label">📝 Resumen del Cliente:</div>
+                    <div style="margin-top: 10px; font-size: 13px; line-height: 1.7;">
+                        <p><strong>Nombre:</strong> <span id="resumenNombre"></span></p>
+                        <p><strong>Email:</strong> <span id="resumenEmail"></span></p>
+                        <p><strong>Empresa:</strong> <span id="resumenEmpresa"></span></p>
+                        <p><strong>Rubro:</strong> <span id="resumenRubro"></span></p>
+                        <p><strong>Ubicación:</strong> <span id="resumenUbicacion"></span></p>
+                        <p><strong>Tipo Propuesta:</strong> <span id="resumenTipo"></span></p>
+                        <p><strong>Desafíos:</strong> <span id="resumenDesafios"></span></p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('generatorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+
+            // Generar URLs para GitHub Pages
+            const baseURL = "https://patriciosilva.github.io/acp-propuestas"; // CAMBIAR SI USAS OTRO USUARIO
+            
+            const linkPropuesta = `${baseURL}/PROPUESTA_${data.nombreCliente.replace(/\s+/g, '_').toUpperCase()}.html`;
+            const linkFormulario = `${baseURL}/FORMULARIO_FEEDBACK.html`;
+
+            // Generar mensaje de WhatsApp
+            const mensaje = `Hola ${data.nombreCliente},
+
+Te saluda Patricio Silva de ACP & Asociados.
+
+Como conversamos, entendemos que tu negocio en ${data.rubro} enfrenta: ${data.desafios}
+
+Te adjunto una propuesta personalizada con análisis específico para tu empresa:
+
+👉 *Ver propuesta online:*
+${linkPropuesta}
+
+Una vez que la revises, completa tu feedback aquí:
+👉 *Formulario de feedback:*
+${linkFormulario}
+
+Es rápido (2 minutos) y nos ayuda a ajustar exactamente a lo que necesitas.
+
+¿Preguntas? Estoy disponible:
+📞 WhatsApp: +56 9 4401 8594
+📧 Email: info@acpasociados.cl
+
+¡Gracias!
+Patricio Silva
+ACP & Asociados`;
+
+            // Mostrar outputs
+            document.getElementById('whatsappMessage').textContent = mensaje;
+            document.getElementById('linkPropuesta').textContent = linkPropuesta;
+            document.getElementById('linkFormulario').textContent = linkFormulario;
+
+            // Mostrar resumen
+            document.getElementById('resumenNombre').textContent = data.nombreCliente;
+            document.getElementById('resumenEmail').textContent = data.emailCliente;
+            document.getElementById('resumenEmpresa').textContent = data.empresa;
+            document.getElementById('resumenRubro').textContent = data.rubro;
+            document.getElementById('resumenUbicacion').textContent = data.ubicacion;
+            document.getElementById('resumenTipo').textContent = data.tipoPropuesta;
+            document.getElementById('resumenDesafios').textContent = data.desafios;
+
+            // Mostrar secciones
+            document.getElementById('successMessage').classList.add('show');
+            document.getElementById('outputSection').classList.add('show');
+
+            // Scroll to output
+            setTimeout(() => {
+                document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        });
+
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copiado';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

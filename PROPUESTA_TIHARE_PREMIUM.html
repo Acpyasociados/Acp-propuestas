@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta de Servicios - Tihare Transporte</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1B3B5C;
+            --text-dark: #2C3E50;
+            --white: #FFFFFF;
+            --light: #ECF0F3;
+            --text-secondary: #95A5A6;
+            --accent-teal: #16A085;
+            --accent-blue: #3498DB;
+            --accent-gold: #D4AF37;
+            --accent-orange: #E67E22;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background-color: #F5F7FA;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* HERO SECTION */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #0F2C47 100%);
+            color: var(--white);
+            padding: 80px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: rgba(22, 160, 133, 0.05);
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 60px;
+        }
+
+        .logo-container img {
+            height: 40px;
+            width: auto;
+        }
+
+        .date-section {
+            text-align: right;
+            font-size: 12px;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 56px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: -1px;
+        }
+
+        header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 40px;
+            font-style: italic;
+            color: var(--accent-gold);
+            font-weight: 400;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 14px;
+            opacity: 0.85;
+            margin-bottom: 40px;
+            letter-spacing: 0.5px;
+        }
+
+        .client-info {
+            background: rgba(22, 160, 133, 0.15);
+            padding: 30px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .client-info p {
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .client-info strong {
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .print-btn {
+            background-color: var(--accent-gold);
+            color: var(--primary);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 40px 20px 40px 0;
+            transition: background-color 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .print-btn:hover {
+            background-color: #E5C158;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            padding: 80px 40px;
+            background: var(--white);
+        }
+
+        section {
+            margin-bottom: 80px;
+            page-break-inside: avoid;
+        }
+
+        section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 40px;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-weight: 400;
+            letter-spacing: -0.5px;
+        }
+
+        h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-weight: 400;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        /* BOXES */
+        .problem-box {
+            background: #FADBD8;
+            padding: 30px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-orange);
+            margin-bottom: 25px;
+        }
+
+        .problem-box strong {
+            color: #C0392B;
+            display: block;
+            margin-bottom: 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .success-box {
+            background: #E8F8F5;
+            padding: 30px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-teal);
+            margin-bottom: 25px;
+        }
+
+        .success-box strong {
+            color: var(--accent-teal);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: #FFF8E1;
+            padding: 25px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-gold);
+            margin: 25px 0;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* GRID */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li {
+            font-size: 13px;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .card li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-weight: bold;
+        }
+
+        /* PLANES */
+        .plan-card {
+            background: var(--light);
+            padding: 35px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-teal);
+        }
+
+        .plan-card.featured {
+            background: linear-gradient(135deg, #F0F9F7 0%, #E8F8F5 100%);
+            border-left: 4px solid var(--accent-gold);
+            box-shadow: 0 4px 12px rgba(22, 160, 133, 0.1);
+        }
+
+        .plan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .plan-card h4 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .plan-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .price-tag {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-teal);
+            margin: 15px 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .plan-card.featured .price-tag {
+            color: var(--accent-gold);
+        }
+
+        .service-list {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 15px;
+        }
+
+        .service-list li {
+            font-size: 14px;
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .service-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .plan-footer {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .featured-label {
+            background: var(--accent-gold);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* TABLA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            background: var(--white);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light);
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: var(--light);
+        }
+
+        /* FEEDBACK SECTION */
+        .feedback-section {
+            background: var(--light);
+            padding: 40px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-teal);
+            margin-top: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D0D0D0;
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            background-color: var(--accent-teal);
+            color: var(--white);
+            border: none;
+            padding: 14px 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .submit-btn:hover {
+            background-color: #138D75;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 50px 40px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 8px 0;
+            font-size: 13px;
+        }
+
+        footer .divider {
+            color: var(--accent-gold);
+            margin: 0 10px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 36px;
+            }
+
+            header h2 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .content, header {
+                padding: 40px 20px;
+            }
+        }
+
+        @media print {
+            .print-btn, .feedback-section {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">🖨️ Descargar como PDF</button>
+
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <div class="logo-container">
+                    <img src="logo-acp.png" alt="ACP & Asociados">
+                </div>
+                <div class="date-section">
+                    <p>Providencia, Santiago</p>
+                    <p>Abril 2025</p>
+                </div>
+            </div>
+            
+            <h1>Decisiones más</h1>
+            <h2>inteligentes</h2>
+            <h1>para tu empresa.</h1>
+            
+            <p class="header-subtitle">Con números reales, datos verificados y ejecución garantizada.</p>
+
+            <div class="client-info">
+                <p><strong>Empresa:</strong> Transporte por Carretera</p>
+                <p><strong>Contacto:</strong> Tihare Aravena</p>
+                <p><strong>Ubicación:</strong> Huechuraba</p>
+                <p><strong>Desafíos:</strong> Alza de costos por petróleo + Incrementar clientes</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <!-- SITUACIÓN ACTUAL -->
+        <section>
+            <h2>Tu Situación Actual</h2>
+            <p class="intro-text">Entendemos que tu negocio enfrenta dos desafíos simultáneos muy reales en la industria:</p>
+
+            <div class="problem-box">
+                <strong>⚠️ Desafío #1: Alza de Costos Operacionales</strong>
+                <p style="margin-top: 15px; margin-bottom: 0;">La subida del precio del petróleo impacta directamente tu rentabilidad:</p>
+                <ul style="margin: 12px 0 0 20px; font-size: 14px;">
+                    <li>Combustible: +15-25% en últimos meses</li>
+                    <li>Mantenimiento de flota: Aumenta con edad de vehículos</li>
+                    <li>Sueldos de choferes: Presión por actualización</li>
+                    <li>Seguros y permisos: Costos fijos crecientes</li>
+                </ul>
+            </div>
+
+            <div class="problem-box">
+                <strong>⚠️ Desafío #2: Necesidad de Incrementar Clientes</strong>
+                <p style="margin-top: 15px; margin-bottom: 0;">Aumentar volumen es la respuesta natural, pero requiere:</p>
+                <ul style="margin: 12px 0 0 20px; font-size: 14px;">
+                    <li>Identificar nichos rentables (no solo más volumen)</li>
+                    <li>Desarrollar nuevas relaciones B2B</li>
+                    <li>Mejorar posicionamiento vs competencia</li>
+                    <li>Asegurar que nuevos clientes sean rentables</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <strong style="color: var(--primary); display: block; margin-bottom: 8px;">El problema de los asesores tradicionales:</strong>
+                Diagnostican, dicen qué hacer, y desaparecen. Tú quedas solo ejecutando. En ACP somos diferentes: te acompañamos semana a semana, ajustamos en tiempo real, y medimos éxito en dinero generado (no reportes bonitos).
+            </div>
+        </section>
+
+        <!-- SOLUCIÓN -->
+        <section>
+            <h2>Nuestra Solución</h2>
+            <p class="intro-text">Un plan integrado que resuelve AMBOS desafíos de forma secuencial:</p>
+
+            <h3>FASE 1: Reducción de Costos</h3>
+            <p style="margin-bottom: 20px;"><strong style="color: var(--accent-orange);">Urgente - Próximas 2-3 semanas</strong> | Resultado: Liberar cash + recuperar márgenes</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Diagnóstico Detallado</div>
+                    <ul>
+                        <li>Combustible (consumo real vs teórico)</li>
+                        <li>Mantenimiento (rutinas vs emergencias)</li>
+                        <li>Sueldos y RR.HH</li>
+                        <li>Seguros y permisos</li>
+                        <li>Rutas y logística</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Oportunidades de Ahorro</div>
+                    <ul>
+                        <li>15-25% ahorro combustible</li>
+                        <li>10-20% reducción mantenimiento</li>
+                        <li>5-10% optimización RR.HH</li>
+                        <li>5-15% mejor negociación proveedores</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>✓ Meta Fase 1:</strong> Reducir costos entre <strong style="color: var(--accent-teal); font-size: 16px;">$500k - $2M anuales</strong>
+            </div>
+
+            <h3 style="margin-top: 50px;">FASE 2: Oportunidades de Crecimiento</h3>
+            <p style="margin-bottom: 20px;"><strong style="color: var(--accent-teal);">Semanas 4-16</strong> | Una vez costos controlados, ejecutar estrategia de crecimiento inteligente</p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">Diagnóstico de Oportunidades</div>
+                    <ul>
+                        <li>Nichos rentables en transporte</li>
+                        <li>Clientes B2B potenciales</li>
+                        <li>Rutas con márgenes mejores</li>
+                        <li>Alianzas estratégicas</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Plan de Ejecución 12 Semanas</div>
+                    <ul>
+                        <li>Contacto con clientes potenciales</li>
+                        <li>Negociación de contratos</li>
+                        <li>Implementación de nuevas rutas</li>
+                        <li>Seguimiento semanal</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong>✓ Meta Fase 2:</strong> Incrementar ingresos entre <strong style="color: var(--accent-teal); font-size: 16px;">$3M - $10M anuales</strong>
+            </div>
+        </section>
+
+        <!-- OPCIONES -->
+        <section>
+            <h2>Elige Tu Plan</h2>
+
+            <div class="plan-card">
+                <h4>Opción 1: Reducción de Costos</h4>
+                <p class="plan-subtitle">Solución rápida a problema urgente</p>
+                <div class="price-tag">$8.990/mes</div>
+                <ul class="service-list">
+                    <li>Diagnóstico completo de costos (2 sesiones)</li>
+                    <li>Identificación de oportunidades de ahorro</li>
+                    <li>Plan de implementación (4 sesiones)</li>
+                    <li>Seguimiento semanal (4 semanas)</li>
+                    <li><strong>Meta:</strong> Ahorrar $500k-$2M anuales</li>
+                </ul>
+                <div class="plan-footer"><strong>Inversión total:</strong> $71.920 (8 meses) | <strong>ROI:</strong> 7-28x</div>
+            </div>
+
+            <div class="plan-card">
+                <h4>Opción 2: Oportunidades de Crecimiento</h4>
+                <p class="plan-subtitle">Estrategia para incrementar clientes y rutas rentables</p>
+                <div class="price-tag">$49.000</div>
+                <ul class="service-list">
+                    <li>Diagnóstico de oportunidades (1 sesión)</li>
+                    <li>Identificación de 3 nichos específicos</li>
+                    <li>Plan de ejecución 12 semanas (1 sesión/semana)</li>
+                    <li>Contacto con clientes potenciales</li>
+                    <li><strong>Meta:</strong> Incrementar $3M-$10M anuales</li>
+                </ul>
+                <div class="plan-footer"><strong>Inversión:</strong> $49.000 | <strong>ROI:</strong> 60-200x</div>
+            </div>
+
+            <div class="plan-card featured">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px;">
+                    <h4>Opción 3: Plan Integral (RECOMENDADO)</h4>
+                    <span class="featured-label">Más Popular</span>
+                </div>
+                <p class="plan-subtitle">Solución completa: Controla costos + Crece rentablemente</p>
+                <div class="price-tag">$109.900</div>
+                <ul class="service-list">
+                    <li><strong>FASE 1 (Semanas 1-8):</strong> Reducción costos completa</li>
+                    <li><strong>FASE 2 (Semanas 9-20):</strong> Oportunidades de crecimiento completa</li>
+                    <li>Coaching continuo (1 sesión/semana)</li>
+                    <li>Acceso WhatsApp para dudas urgentes</li>
+                    <li><strong>Meta combinada:</strong> Ahorrar $500k-$2M + Ganar $3M-$10M</li>
+                </ul>
+                <div class="plan-footer"><strong>Inversión:</strong> $109.900 | <strong>ROI:</strong> 30-110x | <strong>Duración:</strong> 4 meses</div>
+            </div>
+
+            <div class="highlight-box" style="background: #FFF8E1; border-left-color: var(--accent-gold);">
+                <strong style="color: var(--primary);">💡 Por qué el Plan Integral es la mejor opción:</strong><br>
+                Primero aseguras márgenes (reducción urgente), luego creces de forma inteligente (sin riesgo financiero). Es la estrategia natural cuando enfrentes ambos desafíos simultáneamente.
+            </div>
+        </section>
+
+        <!-- DIFERENCIADORES -->
+        <section>
+            <h2>¿Por qué ACP es diferente?</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Asesoría Tradicional</th>
+                        <th>ACP y Asociados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Te diagnostica</strong></td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Te dice qué hacer</strong></td>
+                        <td>✓</td>
+                        <td>✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Te acompaña a hacerlo</strong></td>
+                        <td>❌</td>
+                        <td>✓ Semanal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Genera dinero real</strong></td>
+                        <td>Promesa</td>
+                        <td>✓ Medible</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contacto directo</strong></td>
+                        <td>Reuniones formales</td>
+                        <td>✓ WhatsApp 24/7</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Resultado = éxito</strong></td>
+                        <td>Reporte bonito</td>
+                        <td>✓ Dinero ahorrado/ganado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- FEEDBACK -->
+        <section>
+            <h2>Tu Feedback Importa</h2>
+            <p class="intro-text">Esta propuesta es un punto de partida. Nos gustaría saber tu perspectiva para ajustar exactamente a lo que necesitas.</p>
+
+            <div class="feedback-section">
+                <h3 style="margin-top: 0; font-size: 22px;">Cuéntanos tu opinión</h3>
+
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label>Tu nombre *</label>
+                        <input type="text" name="nombre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email de contacto *</label>
+                        <input type="email" name="email" value="Tihare.aravena16@gmail.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Cuál es tu situación actual con costos? *</label>
+                        <textarea name="costos" placeholder="Cuéntanos aproximadamente cuántos vehículos tienes, consumo de combustible, costos operacionales principales..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Cuál de las opciones te atrae más?</label>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="opcion" value="1"> Opción 1: Solo Reducción de Costos</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="opcion" value="2"> Opción 2: Solo Oportunidades</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="opcion" value="3"> Opción 3: Plan Integral (RECOMENDADO)</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <label><input type="radio" name="opcion" value="4"> No estoy seguro, hablemos</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Cuál es tu mayor preocupación AHORA? *</label>
+                        <select name="preocupacion" required>
+                            <option value="">-- Selecciona --</option>
+                            <option value="costos">Costos subiendo (muy urgente)</option>
+                            <option value="márgenes">Márgenes se comprimen</option>
+                            <option value="clientes">Necesito más clientes</option>
+                            <option value="ambos">Ambas simultáneamente</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Cuándo te gustaría empezar?</label>
+                        <select name="timeline">
+                            <option value="">-- Selecciona --</option>
+                            <option value="inmediato">Inmediato</option>
+                            <option value="2semanas">Próximas 2 semanas</option>
+                            <option value="mes">Próximo mes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>¿Preguntas o dudas?</label>
+                        <textarea name="preguntas" placeholder="Tus dudas, preguntas, o consideraciones..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Enviar Feedback</button>
+                </form>
+            </div>
+
+            <p style="text-align: center; margin-top: 30px; font-size: 13px; color: var(--text-secondary);">
+                O contacta directamente: <strong>+56 9 4401 8594</strong> (WhatsApp) | <strong>info@acpasociados.cl</strong>
+            </p>
+        </section>
+    </div>
+
+    <footer>
+        <p><strong>ACP & Asociados</strong></p>
+        <p>Asesorías Financieras y de Negocios</p>
+        <p style="margin-top: 15px; opacity: 0.7;">Providencia, Santiago <span class="divider">|</span> +56 9 4401 8594 <span class="divider">|</span> info@acpasociados.cl</p>
+    </footer>
+
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            const mensaje = `Hola Patricio, aquí está mi feedback sobre la propuesta:
+
+Nombre: ${data.nombre}
+Email: ${data.email}
+
+SITUACIÓN COSTOS: ${data.costos}
+
+OPCIÓN PREFERIDA: Opción ${data.opcion || '(no seleccionada)'}
+
+MAYOR PREOCUPACIÓN: ${data.preocupacion}
+
+CUÁNDO EMPEZAR: ${data.timeline || '(flexible)'}
+
+PREGUNTAS/DUDAS: ${data.preguntas || '(sin preguntas)'}`;
+
+            const whatsappLink = `https://wa.me/56944018594?text=${encodeURIComponent(mensaje)}`;
+            
+            window.open(whatsappLink, '_blank');
+            alert('Tu feedback se enviará por WhatsApp. ¡Gracias!');
+        });
+
+        window.addEventListener('beforeprint', function() {
+            document.querySelector('.print-btn').style.display = 'none';
+            document.querySelector('.feedback-section').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
