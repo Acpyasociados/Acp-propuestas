@@ -1,0 +1,83 @@
+name: "Automatizar Propuestas de Clientes"
+
+on:
+  issues:
+    types: [opened]
+
+env:
+  NODE_VERSION: "18"
+
+jobs:
+  procesar-propuesta:
+    if: contains(github.event.issue.labels.*.name, 'propuesta')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Extract info
+        id: extract
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const body = context.payload.issue.body;
+            const title = context.payload.issue.title;
+            const number = context.payload.issue.number;
+            const user = context.payload.issue.user.login;
+            const createdAt = context.payload.issue.created_at;
+            core.setOutput('issue_number', number);
+            core.setOutput('issue_title', title);
+            core.setOutput('issue_body', body);
+            core.setOutput('issue_user', user);
+            core.setOutput('created_at', createdAt);
+      - name: Create JSON
+        run: |
+          mkdir -p propuestas
+          cat > propuestas/${{ steps.extract.outputs.issue_number }}.json << 'EOF'
+          {
+            "id": "${{ steps.extract.outputs.issue_number }}",
+            "titulo": "${{ steps.extract.outputs.issue_title }}",
+            "usuario": "${{ steps.extract.outputs.issue_user }}",
+            "fecha_creacion": "${{ steps.extract.outputs.created_at }}",
+            "estado": "pendiente-revision",
+            "contenido": "${{ steps.extract.outputs.issue_body }}",
+            "github_issue_url": "${{ github.event.issue.html_url }}"
+          }
+          EOF
+      - name: Create PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { repo, owner } = context;
+            const branchName = `propuesta-${{ steps.extract.outputs.issue_number }}`;
+            try {
+              const mainBranch = await github.rest.repos.getBranch({owner, repo, branch: 'main'});
+              await github.rest.git.createRef({owner, repo, ref: `refs/heads/${branchName}`, sha: mainBranch.data.commit.sha});
+            } catch (error) {
+              if (error.status !== 422) throw error;
+            }
+      - name: Commit
+        run: |
+          git config --global user.name "bot-propuestas"
+          git config --global user.email "bot@acpyasociados.cl"
+          git checkout -b propuesta-${{ steps.extract.outputs.issue_number }} || true
+          git add propuestas/${{ steps.extract.outputs.issue_number }}.json
+          git commit -m "docs: propuesta #${{ steps.extract.outputs.issue_number }}" --allow-empty
+          git push origin propuesta-${{ steps.extract.outputs.issue_number }} -f
+        continue-on-error: true
+      - name: Comment
+        if: success()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "## ? Propuesta Procesada\n\nTu propuesta ha sido recibida."
+            });
