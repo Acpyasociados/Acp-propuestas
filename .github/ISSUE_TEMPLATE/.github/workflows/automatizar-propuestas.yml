@@ -10,145 +10,42 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      issues: read
-      pull-requests: write
+      issues: write
 
     steps:
-      - name: "📥 Descargar repositorio"
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: "📋 Extraer información de la propuesta"
-        id: extract
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const body = context.payload.issue.body;
-            const title = context.payload.issue.title;
-            const number = context.payload.issue.number;
-            const user = context.payload.issue.user.login;
-            const createdAt = context.payload.issue.created_at;
-
-            core.setOutput('issue_number', number);
-            core.setOutput('issue_title', title);
-            core.setOutput('issue_body', body);
-            core.setOutput('issue_user', user);
-            core.setOutput('created_at', createdAt);
-
-      - name: "💾 Crear archivo de propuesta"
+      - name: "Crear archivo de propuesta"
         run: |
           mkdir -p propuestas
-          cat > propuestas/${{ steps.extract.outputs.issue_number }}.json << 'EOF'
+          cat > propuestas/${{ github.event.issue.number }}.json << 'EOF'
           {
-            "id": "${{ steps.extract.outputs.issue_number }}",
-            "titulo": "${{ steps.extract.outputs.issue_title }}",
-            "usuario": "${{ steps.extract.outputs.issue_user }}",
-            "fecha_creacion": "${{ steps.extract.outputs.created_at }}",
+            "id": ${{ github.event.issue.number }},
+            "titulo": "${{ github.event.issue.title }}",
+            "usuario": "${{ github.event.issue.user.login }}",
+            "fecha": "${{ github.event.issue.created_at }}",
             "estado": "pendiente-revision",
-            "contenido": "${{ steps.extract.outputs.issue_body }}",
-            "github_issue_url": "${{ github.event.issue.html_url }}"
+            "url": "${{ github.event.issue.html_url }}"
           }
           EOF
 
-      - name: "🔄 Hacer commit del archivo"
+      - name: "Commit y push"
         run: |
-          git config --global user.name "bot-propuestas"
+          git config --global user.name "bot"
           git config --global user.email "bot@acpyasociados.cl"
-          git add propuestas/${{ steps.extract.outputs.issue_number }}.json
-          git commit -m "docs: agregar propuesta #${{ steps.extract.outputs.issue_number }}" || true
+          git add propuestas/
+          git commit -m "add: propuesta #${{ github.event.issue.number }}" || true
           git push
         continue-on-error: true
 
-      - name: "📬 Crear Pull Request"
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const { repo, owner } = context;
-            
-            const prs = await github.rest.pulls.list({
-              owner,
-              repo,
-              state: 'open'
-            });
-            
-            const prExists = prs.data.some(pr => 
-              pr.title.includes(`#${{ steps.extract.outputs.issue_number }}`)
-            );
-            
-            if (!prExists) {
-              await github.rest.pulls.create({
-                owner,
-                repo,
-                title: `[Revisión] Propuesta #${{ steps.extract.outputs.issue_number }}`,
-                head: `propuesta-${{ steps.extract.outputs.issue_number }}`,
-                base: 'main',
-                body: `## 📋 Propuesta #${{ steps.extract.outputs.issue_number }}
-
-**Cliente/Usuario:** @${{ steps.extract.outputs.issue_user }}
-**Fecha:** ${{ steps.extract.outputs.created_at }}
-
-### 📄 Detalles
-${{ steps.extract.outputs.issue_body }}
-
----
-
-**Vinculado a:** ${{ github.event.issue.html_url }}`
-              });
-            }
-
-      - name: "📧 Notificar por email"
-        if: success()
+      - name: "Enviar email"
         uses: dawidd6/action-send-mail@v3
-        continue-on-error: true
         with:
           server_address: ${{ secrets.EMAIL_SERVER }}
           server_port: ${{ secrets.EMAIL_PORT }}
           username: ${{ secrets.EMAIL_USER }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "🎯 Nueva Propuesta Recibida #${{ steps.extract.outputs.issue_number }}"
           to: ${{ secrets.TEAM_EMAIL }}
-          from: "propuestas@acpyasociados.cl"
-          body: |
-            ¡Nueva propuesta recibida en el sistema!
-
-            📋 PROPUESTA #${{ steps.extract.outputs.issue_number }}
-            ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-            👤 Cliente: ${{ steps.extract.outputs.issue_user }}
-            📅 Fecha: ${{ steps.extract.outputs.created_at }}
-            📌 Título: ${{ steps.extract.outputs.issue_title }}
-
-            🔗 VER DETALLES: ${{ github.event.issue.html_url }}
-
-            ⏳ Estado: Pendiente de revisión
-
-            ---
-            Sistema de Automatización de Propuestas
-            ACP y Asociados
-
-      - name: "✅ Añadir comentario al Issue"
-        if: success()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## ✅ Propuesta Procesada Automáticamente
-
-Tu propuesta ha sido recibida y procesada correctamente.
-
-### 📊 Estado del Proceso
-- ✅ Propuesta guardada en el sistema
-- ✅ Pull Request creado para revisión
-- ✅ Equipo notificado por email
-
-### 🔗 Enlaces Útiles
-- [Ver esta propuesta](${{ github.event.issue.html_url }})
-
-### ⏳ Próximos Pasos
-Nuestro equipo revisará tu propuesta y se pondrá en contacto contigo a la brevedad a través de los datos de contacto proporcionados.
-
----
-*Sistema de Automatización de Propuestas • ACP y Asociados*`
-            });
+          subject: "Nueva propuesta #${{ github.event.issue.number }}"
+          body: "Nueva propuesta: ${{ github.event.issue.title }}"
+        continue-on-error: true
