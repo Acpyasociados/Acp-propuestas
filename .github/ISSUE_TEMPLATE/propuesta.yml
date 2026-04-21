@@ -13,7 +13,7 @@ body:
     id: nombre_cliente
     attributes:
       label: "Nombre de la empresa o persona"
-      placeholder: "ej: ABC Constructora, Juan Pérez"
+      placeholder: "ej: ABC Constructora"
     validations:
       required: true
 
@@ -21,7 +21,6 @@ body:
     id: email
     attributes:
       label: "Email de contacto"
-      type: email
       placeholder: "contacto@empresa.cl"
     validations:
       required: true
@@ -37,28 +36,25 @@ body:
   - type: input
     id: empresa
     attributes:
-      label: "Nombre de la empresa (si aplica)"
-      placeholder: "Nombre empresa"
+      label: "Nombre de la empresa"
+      placeholder: "Mi Empresa"
 
   - type: textarea
     id: descripcion
     attributes:
       label: "Descripción del proyecto"
-      description: "Cuéntanos qué necesitas"
-      placeholder: "Tipo de servicio, Ubicación, Presupuesto, Plazo"
+      placeholder: "Describe tu proyecto en detalle"
     validations:
       required: true
 
   - type: dropdown
     id: tipo_servicio
     attributes:
-      label: "Tipo de servicio requerido"
+      label: "Tipo de servicio"
       options:
         - "Diseño y Paisajismo"
-        - "Mantenimiento de Áreas Verdes"
-        - "Consultoría Ambiental"
-        - "Instalación de Sistemas de Riego"
-        - "Poda y Control de Plagas"
+        - "Mantenimiento"
+        - "Consultoría"
         - "Otro"
     validations:
       required: true
@@ -66,26 +62,25 @@ body:
   - type: input
     id: ubicacion
     attributes:
-      label: "Ubicación del proyecto"
-      placeholder: "Santiago, Región Metropolitana"
+      label: "Ubicación"
+      placeholder: "Santiago"
     validations:
       required: true
 
   - type: input
     id: presupuesto
     attributes:
-      label: "Presupuesto estimado (CLP)"
-      placeholder: "ej: $500.000 - $1.000.000"
+      label: "Presupuesto (opcional)"
+      placeholder: "$500.000 - $1.000.000"
 
   - type: dropdown
     id: plazo
     attributes:
-      label: "Plazo requerido"
+      label: "Plazo"
       options:
-        - "Urgente (1-2 semanas)"
+        - "Urgente"
         - "Próximo mes"
         - "1-3 meses"
-        - "No definido aún"
     validations:
       required: true
 
@@ -93,12 +88,4 @@ body:
     id: referencias
     attributes:
       label: "Información adicional"
-      placeholder: "Proyectos similares, restricciones, etc."
-
-  - type: checkboxes
-    id: terminos
-    attributes:
-      label: "Aceptación"
-      options:
-        - label: "Acepto que mis datos sean usados para contactarme"
-          required: true
+      placeholder: "Detalles extra..."
