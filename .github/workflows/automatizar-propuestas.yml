@@ -5,8 +5,7 @@ on:
     types: [opened]
 
 env:
-  NODE_VERSION: "18"
-
+  NODE_VERSION: "22"
 jobs:
   procesar-propuesta:
     if: contains(github.event.issue.labels.*.name, 'propuesta')
@@ -17,7 +16,7 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
       - name: Extract info
@@ -53,7 +52,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const { repo, owner } = context;
+            const { repo, owner } = context.repo;
             const branchName = `propuesta-${{ steps.extract.outputs.issue_number }}`;
             try {
               const mainBranch = await github.rest.repos.getBranch({owner, repo, branch: 'main'});
